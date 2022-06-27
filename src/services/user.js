@@ -62,6 +62,16 @@ exports.createToken = function (user) {
     return tokenPromise;
 };
 
+exports.validateToken = function (token) {
+    return jwt.verify(token, JWT_SECRET, function (error, decoded) {
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return decoded;
+    });
+};
+
 async function getUserByEmail(email) {
     const user = await User.findOne({ email: new RegExp(`^${email}$`, 'i') });
     return user;
