@@ -2,7 +2,7 @@ const Comment = require('../models/Comment');
 
 exports.create = async function (userId, movieId, content) {
     const comment = new Comment({
-        userId,
+        author: userId,
         movieId,
         content,
     });

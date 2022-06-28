@@ -2,8 +2,9 @@ const router = require('express').Router();
 
 const userService = require('../services/user');
 const { mapErrors } = require('../utils/mapErrors');
+const { isGuest } = require('../middlewares/guards');
 
-router.post('/register', async (req, res) => {
+router.post('/register', isGuest(), async (req, res) => {
     const data = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -31,7 +32,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', isGuest(), async (req, res) => {
     const data = {
         email: req.body.email.trim().toLocaleLowerCase(),
         password: req.body.password,

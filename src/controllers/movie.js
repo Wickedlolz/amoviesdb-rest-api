@@ -3,6 +3,7 @@ const router = require('express').Router();
 const movieService = require('../services/movie');
 const commentService = require('../services/comment');
 const { mapErrors } = require('../utils/mapErrors');
+const { isAuth } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
     try {
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', isAuth(), async (req, res) => {
     const data = {
         title: req.body.title,
         imageUrl: req.body.imageUrl,
@@ -37,7 +38,7 @@ router.get('/:id', async (req, res) => {
         const movie = await movieService
             .getById(movieId)
             .populate('likes')
-            .populate('comments');
+            .populate({ path: 'comments', populate: { path: 'author' } });
 
         res.json(movie);
     } catch (error) {
@@ -46,7 +47,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', isAuth(), async (req, res) => {
     const movieId = req.params.id;
 
     const data = {
@@ -64,7 +65,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isAuth(), async (req, res) => {
     const movieId = req.params.id;
     console.log('DELETE Record');
 
@@ -77,7 +78,7 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-router.post('/like/:id', async (req, res) => {
+router.post('/like/:id', isAuth(), async (req, res) => {
     const movieId = req.params.id;
 
     try {
@@ -90,7 +91,7 @@ router.post('/like/:id', async (req, res) => {
     }
 });
 
-router.post('/dislike/:id', async (req, res) => {
+router.post('/dislike/:id', isAuth(), async (req, res) => {
     const movieId = req.params.id;
 
     try {
@@ -103,7 +104,7 @@ router.post('/dislike/:id', async (req, res) => {
     }
 });
 
-router.post('/comments/:id', async (req, res) => {
+router.post('/comments/:id', isAuth(), async (req, res) => {
     const movieId = req.params.id;
     const userId = req.user.id;
     const content = req.body.content.trim();
