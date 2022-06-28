@@ -13,6 +13,7 @@ exports.create = async function (movieData) {
         title: movieData.title,
         imageUrl: movieData.imageUrl,
         description: movieData.description,
+        owner: movieData.owner,
     });
 
     await movie.save();

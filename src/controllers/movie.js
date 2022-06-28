@@ -3,7 +3,7 @@ const router = require('express').Router();
 const movieService = require('../services/movie');
 const commentService = require('../services/comment');
 const { mapErrors } = require('../utils/mapErrors');
-const { isAuth } = require('../middlewares/guards');
+const { isAuth, isCreator } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
     try {
@@ -16,10 +16,13 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', isAuth(), async (req, res) => {
+    const userId = req.user.id;
+
     const data = {
         title: req.body.title,
         imageUrl: req.body.imageUrl,
         description: req.body.description,
+        owner: userId,
     };
 
     try {
@@ -47,7 +50,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.put('/:id', isAuth(), async (req, res) => {
+router.put('/:id', isAuth(), isCreator(), async (req, res) => {
     const movieId = req.params.id;
 
     const data = {
@@ -65,7 +68,7 @@ router.put('/:id', isAuth(), async (req, res) => {
     }
 });
 
-router.delete('/:id', isAuth(), async (req, res) => {
+router.delete('/:id', isAuth(), isCreator(), async (req, res) => {
     const movieId = req.params.id;
     console.log('DELETE Record');
 
