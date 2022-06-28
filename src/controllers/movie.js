@@ -4,6 +4,7 @@ const movieService = require('../services/movie');
 const commentService = require('../services/comment');
 const { mapErrors } = require('../utils/mapErrors');
 const { isAuth, isCreator } = require('../middlewares/guards');
+const { body, validationResult } = require('express-validator');
 
 router.get('/', async (req, res) => {
     try {
@@ -16,6 +17,8 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', isAuth(), async (req, res) => {
+    // viktor: TODO: make validation
+    const { errors } = validationResult(req);
     const userId = req.user.id;
 
     const data = {
@@ -26,6 +29,10 @@ router.post('/', isAuth(), async (req, res) => {
     };
 
     try {
+        if (errors.length > 0) {
+            throw errors;
+        }
+
         const movie = await movieService.create(data);
         res.status(201).json(movie);
     } catch (error) {
@@ -70,7 +77,6 @@ router.put('/:id', isAuth(), isCreator(), async (req, res) => {
 
 router.delete('/:id', isAuth(), isCreator(), async (req, res) => {
     const movieId = req.params.id;
-    console.log('DELETE Record');
 
     try {
         const deletedMovie = await movieService.deleteById(movieId);
