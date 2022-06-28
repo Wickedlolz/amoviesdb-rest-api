@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const movieService = require('../services/movie');
+const commentService = require('../services/comment');
 const { mapErrors } = require('../utils/mapErrors');
 
 router.get('/', async (req, res) => {
@@ -33,7 +34,11 @@ router.get('/:id', async (req, res) => {
     const movieId = req.params.id;
 
     try {
-        const movie = await movieService.getById(movieId);
+        const movie = await movieService
+            .getById(movieId)
+            .populate('likes')
+            .populate('comments');
+
         res.json(movie);
     } catch (error) {
         const errors = mapErrors(error);
@@ -66,6 +71,48 @@ router.delete('/:id', async (req, res) => {
     try {
         const deletedMovie = await movieService.deleteById(movieId);
         res.json(deletedMovie);
+    } catch (error) {
+        const errors = mapErrors(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
+router.post('/like/:id', async (req, res) => {
+    const movieId = req.params.id;
+
+    try {
+        await movieService.like(movieId, req.user.id);
+
+        res.status(201).json({ message: 'Like added.' });
+    } catch (error) {
+        const errors = mapErrors(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
+router.post('/dislike/:id', async (req, res) => {
+    const movieId = req.params.id;
+
+    try {
+        await movieService.dislike(movieId, req.user.id);
+
+        res.status(201).json({ message: 'Disliked successfully.' });
+    } catch (error) {
+        const errors = mapErrors(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
+router.post('/comments/:id', async (req, res) => {
+    const movieId = req.params.id;
+    const userId = req.user.id;
+    const content = req.body.content.trim();
+
+    try {
+        const comment = await commentService.create(userId, movieId, content);
+        await movieService.addComment(movieId, comment._id);
+
+        res.status(201).json(comment);
     } catch (error) {
         const errors = mapErrors(error);
         res.status(400).json({ message: errors });

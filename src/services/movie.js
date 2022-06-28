@@ -36,3 +36,37 @@ exports.deleteById = async function (movieId) {
     const deletedMovie = await Movie.findByIdAndRemove(movieId);
     return deletedMovie;
 };
+
+exports.like = async function (movieId, userId) {
+    const movie = await Movie.findById(movieId);
+
+    if (movie.likes.find((user) => user == userId)) {
+        throw new Error('User already like this movie.');
+    }
+
+    movie.likes.push(userId);
+
+    await movie.save();
+
+    return movie;
+};
+
+exports.dislike = async function (movieId, userId) {
+    const movie = await Movie.findById(movieId);
+
+    movie.likes.pull(userId);
+
+    await movie.save();
+
+    return movie;
+};
+
+exports.addComment = async function (movieId, commentId) {
+    const movie = await Movie.findById(movieId);
+
+    movie.comments.push(commentId);
+
+    await movie.save();
+
+    return movie;
+};
