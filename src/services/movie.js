@@ -12,6 +12,7 @@ exports.create = async function (movieData) {
     const movie = new Movie({
         title: movieData.title,
         imageUrl: movieData.imageUrl,
+        youtubeUrl: movieData.youtubeUrl,
         description: movieData.description,
         owner: movieData.owner,
     });
