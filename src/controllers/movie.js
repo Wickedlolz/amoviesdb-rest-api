@@ -92,9 +92,9 @@ router.post('/like/:id', isAuth(), async (req, res) => {
     const movieId = req.params.id;
 
     try {
-        await movieService.like(movieId, req.user.id);
+        const movie = await movieService.like(movieId, req.user.id);
 
-        res.status(201).json({ message: 'Like added.' });
+        res.status(201).json(movie);
     } catch (error) {
         const errors = mapErrors(error);
         res.status(400).json({ message: errors });
@@ -105,9 +105,9 @@ router.post('/dislike/:id', isAuth(), async (req, res) => {
     const movieId = req.params.id;
 
     try {
-        await movieService.dislike(movieId, req.user.id);
+        const movie = await movieService.dislike(movieId, req.user.id);
 
-        res.status(201).json({ message: 'Disliked successfully.' });
+        res.status(201).json(movie);
     } catch (error) {
         const errors = mapErrors(error);
         res.status(400).json({ message: errors });
