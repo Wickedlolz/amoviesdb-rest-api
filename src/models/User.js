@@ -10,7 +10,10 @@ const userSchema = new Schema({
     username: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    avatar: { type: String, default: '/public/images/wvxPV9S.png' },
+    avatar: {
+        type: String,
+        default: 'http://localhost:3030/public/images/wvxPV9S.png',
+    },
     myMovies: [{ type: ObjectId, ref: 'Movie' }],
 });
 
