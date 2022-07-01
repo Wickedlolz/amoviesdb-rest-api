@@ -47,6 +47,7 @@ router.get('/:id', async (req, res) => {
     try {
         const movie = await movieService
             .getById(movieId)
+            .populate('owner')
             .populate('likes')
             .populate({ path: 'comments', populate: { path: 'author' } });
 
