@@ -117,7 +117,7 @@ router.post('/dislike/:id', isAuth(), async (req, res) => {
 router.post('/comments/:id', isAuth(), async (req, res) => {
     const movieId = req.params.id;
     const userId = req.user.id;
-    const content = req.body.content.trim();
+    const content = req.body.content;
 
     try {
         const comment = await commentService.create(userId, movieId, content);
