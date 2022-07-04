@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const userService = require('../services/user');
 const { mapErrors } = require('../utils/mapErrors');
-const { isGuest } = require('../middlewares/guards');
+const { isGuest, isAuth } = require('../middlewares/guards');
 
 router.post('/register', isGuest(), async (req, res) => {
     const data = {
@@ -55,6 +55,10 @@ router.post('/login', isGuest(), async (req, res) => {
         const errors = mapErrors(error);
         res.status(400).json({ message: errors });
     }
+});
+
+router.get('/logout', isAuth(), (req, res) => {
+    res.json({ message: 'Successfully logout.' });
 });
 
 module.exports = router;
