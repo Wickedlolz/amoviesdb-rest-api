@@ -41,6 +41,12 @@ exports.login = async function (email, password) {
     return user;
 };
 
+exports.getById = async function (userId) {
+    const user = await User.findById(userId);
+
+    return user;
+};
+
 exports.createToken = function (user) {
     const tokenPromise = new Promise((resolve, reject) => {
         const payload = {

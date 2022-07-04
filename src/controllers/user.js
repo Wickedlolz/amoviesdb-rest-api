@@ -61,4 +61,17 @@ router.get('/logout', isAuth(), (req, res) => {
     res.json({ message: 'Successfully logout.' });
 });
 
+router.get('/:userId', isAuth(), async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const user = await userService.getById(userId);
+
+        res.json(user);
+    } catch (error) {
+        const errors = mapErrors(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
 module.exports = router;
