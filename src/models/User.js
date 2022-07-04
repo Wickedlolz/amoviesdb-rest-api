@@ -4,18 +4,21 @@ const {
     Types: { ObjectId },
 } = require('mongoose');
 
-const userSchema = new Schema({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    username: { type: String, required: true },
-    email: { type: String, required: true },
-    password: { type: String, required: true },
-    avatar: {
-        type: String,
-        default: 'http://localhost:3030/public/images/wvxPV9S.png',
+const userSchema = new Schema(
+    {
+        firstName: { type: String, required: true },
+        lastName: { type: String, required: true },
+        username: { type: String, required: true },
+        email: { type: String, required: true },
+        password: { type: String, required: true },
+        avatar: {
+            type: String,
+            default: 'http://localhost:3030/public/images/wvxPV9S.png',
+        },
+        myMovies: [{ type: ObjectId, ref: 'Movie' }],
     },
-    myMovies: [{ type: ObjectId, ref: 'Movie' }],
-});
+    { timestamps: true }
+);
 
 userSchema.index(
     { email: 1 },
