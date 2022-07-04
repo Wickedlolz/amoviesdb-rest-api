@@ -47,6 +47,19 @@ exports.getById = async function (userId) {
     return user;
 };
 
+exports.updateById = async function (userId, userData) {
+    const user = await User.findById(userId);
+
+    user.firstName = userData.firstName;
+    user.lastName = userData.lastName;
+    user.username = userData.username;
+    user.email = userData.email;
+
+    await user.save();
+
+    return user;
+};
+
 exports.createToken = function (user) {
     const tokenPromise = new Promise((resolve, reject) => {
         const payload = {

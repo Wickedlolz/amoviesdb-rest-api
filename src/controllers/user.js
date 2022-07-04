@@ -74,4 +74,24 @@ router.get('/:userId', isAuth(), async (req, res) => {
     }
 });
 
+router.post('/:userId', isAuth(), async (req, res) => {
+    const userId = req.params.userId;
+
+    const data = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username,
+        email: req.body.email,
+    };
+
+    try {
+        const user = await userService.updateById(userId, data);
+
+        res.status(201).json(user);
+    } catch (error) {
+        const errors = mapErrors(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
 module.exports = router;
