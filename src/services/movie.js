@@ -72,3 +72,9 @@ exports.addComment = async function (movieId, commentId) {
 
     return movie;
 };
+
+exports.getMyMovies = async function (userId) {
+    const movies = await Movie.find({ owner: userId });
+
+    return movies;
+};

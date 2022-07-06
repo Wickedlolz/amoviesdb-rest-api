@@ -16,6 +16,18 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/my-movies/:userId', isAuth(), async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const myMovies = await movieService.getMyMovies(userId);
+        res.json(myMovies);
+    } catch (error) {
+        const errors = mapErrors(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
 router.post('/', isAuth(), async (req, res) => {
     // viktor: TODO: make validation
     const { errors } = validationResult(req);
