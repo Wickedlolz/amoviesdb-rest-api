@@ -2,6 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { hash, compare } = require('bcrypt');
 const { SALT_ROUNDS, JWT_SECRET } = require('../config/constants');
+const { uploadFile } = require('../utils/disk');
 
 exports.register = async function (userData) {
     const existing = await getUserByEmail(userData.email);
@@ -50,14 +51,29 @@ exports.getById = async function (userId) {
 exports.updateById = async function (userId, userData) {
     const user = await User.findById(userId);
 
-    user.firstName = userData.firstName;
-    user.lastName = userData.lastName;
-    user.username = userData.username;
-    user.email = userData.email;
+    if (userData.avatar.name !== '') {
+        const proflePictureId = await uploadFile(userData.avatar);
+        const proflePicture = `https://drive.google.com/uc?id=${proflePictureId}`;
 
-    await user.save();
+        user.firstName = userData.firstName;
+        user.lastName = userData.lastName;
+        user.username = userData.username;
+        user.email = userData.email;
+        user.avatar = proflePicture;
 
-    return user;
+        await user.save();
+
+        return user;
+    } else {
+        user.firstName = userData.firstName;
+        user.lastName = userData.lastName;
+        user.username = userData.username;
+        user.email = userData.email;
+
+        await user.save();
+
+        return user;
+    }
 };
 
 exports.createToken = function (user) {

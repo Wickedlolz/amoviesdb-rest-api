@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const formidableMiddleware = require('express-formidable');
 
 const userService = require('../services/user');
 const { mapErrors } = require('../utils/mapErrors');
@@ -74,14 +75,15 @@ router.get('/:userId', isAuth(), async (req, res) => {
     }
 });
 
-router.post('/:userId', isAuth(), async (req, res) => {
+router.put('/:userId', isAuth(), formidableMiddleware(), async (req, res) => {
     const userId = req.params.userId;
 
     const data = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        username: req.body.username,
-        email: req.body.email,
+        firstName: req.fields.firstName,
+        lastName: req.fields.lastName,
+        username: req.fields.username,
+        email: req.fields.email,
+        avatar: req.files.avatar,
     };
 
     try {
