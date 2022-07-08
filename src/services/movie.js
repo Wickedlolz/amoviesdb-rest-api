@@ -27,6 +27,7 @@ exports.updateById = async function (movieId, movieData) {
 
     movie.title = movieData.title;
     movie.imageUrl = movieData.imageUrl;
+    movie.youtubeUrl = movieData.youtubeUrl;
     movie.description = movieData.description;
 
     await movie.save();

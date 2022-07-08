@@ -77,6 +77,7 @@ router.put('/:id', isAuth(), isCreator(), async (req, res) => {
     const data = {
         title: req.body.title,
         imageUrl: req.body.imageUrl,
+        youtubeUrl: req.body.youtubeUrl,
         description: req.body.description,
     };
 
