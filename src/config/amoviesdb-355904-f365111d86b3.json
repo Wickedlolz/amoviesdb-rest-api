@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "amoviesdb-355904",
+  "private_key_id": "f365111d86b331415ccb8d90388cf4634273bac0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDUA5uVrQA9EKud\nii+V25MqA4T8ghNsK2nmM0Okvqj5DExHfAVOcUpZdre/b+R/ZpB9hXfrs9lyIvSi\nW6kyhVK9hZIM7XpaMYrpAFHBYqd1VfIBmE99P8u2E/X6mWaWWzlV1CHapDPkIwsB\nVsz0Dt1xhmnuXMLKWePe59fzj0iFTbM3K/QXSvFpbodmLMmKBzqDVaPQ/L/zypQy\nC0gM+H8NAdGSNY17IO8JjlM8A32BGaWECd5X9qegUvjF9QfJjo6WE6PBVvDbyOks\nj/YX/2g1x+Gf39FRfth6hkrASKW/xszFz4aM+WCAQyumOSCSo8Pev6OPJkDtp+wF\n5iIv5UHhAgMBAAECggEAFP4vdWxeKe3A5HZGnHLTuVUEYcFafXs1/vCECefEEPb2\nBZ0C5H/EwiOGcbr5V+EWvQsOcwUJqqrJ6NqlIAbCCNiVO9j25L/jlosszTaAyNZE\nAoLrmgYLXIHQ+Smf1hL91CEPYhgguD39DLqkzCS9qgxKaGsAcathbBSuViRRpLs8\n97DtTqcn0euaYqMQMz+uKQVFXl2KR5MIiMMW7MIOWfop00/DZFyBKgxClT8I6b7V\nl6zoCZ/s99X1V2K2aVBm/txEeNglY6yqoesr5Cegty+pr834XkiJ5T5bdhWItpfy\n9+uCK2EQfGcvzwNXQLWpb0GMrw7A1B0rg73ExBvDcQKBgQDsStJzV3KT5q0tlEdI\nt/BSxnZHFG9UPnF4+zzTKd4r4PXXOLlKcz6CP8nSzyvv8wXE29rd8zDQzNa2SzME\nQNa+1T1wpWENuvONAsXy4hwtnFOlWDGw7rAmEDN40mrhSBwbEgkaSt29VOU8rRCk\nt/8lkKyGsdZvYIOkZ5pLxzq6aQKBgQDlsmlrx1UOt28JWjo1Xs/UfPnvpHZHFaSH\nuBk3cKteKtpUBSNagidNq4W7VVrV9smcF7zsgnrheiTrqpk7DH9s68cCGSUhCsJQ\nN2g0QOc6cu+hOT7Fv/E887y0ipS+b7sfYMYD1sFzUWjVQQKZ+NhkAFbeyTHhb2WG\nVlagdMasuQKBgGCoxugp+JPqBCOmCXcEz4l85/txr4z9sjt0QtB6ywiWENsGuD1t\nYT+0ymGzH90bQ9vgt+qdRfXUJW0S2/68a1xLLMP80vPj6yde4AzYVACQd2Mm7cTc\nDzCy5eth4Bjh/6VPPmwD/isqJFAq16kaH4SFZx3+d6K+D3vcabDgAfUpAoGAbXTN\nY7zDPZYP5YcHgfNCWmGLwLTAYDNiCgKikZaxMth83djs9e5byFlaCuErvhYyEJ4H\nOzUaVWQdP+g1yLu15TOdy9Qrq0kzO4KLt4rOJT4sDsn2rck/reoAHJCFPRKFOvik\no6Os38UFjcnC8ZhxlYXL37JEgMbSvGdcNG4xVpECgYBhJPCUzsXJgPXEWIUCPnWt\nNUtIxvB/6gluxlXbABFrq3IQDc70Wr/+f080uMe7iIxl7MuDzD96RwddqRv+n2oS\nKmegcZOxSx7ddNkaST939KKuHv2jpDuQpZY0sjn+RPyIZJpZh9O5T7z4GWeAXQh6\nAF3OiMbX9lCF4qfS1sFLvg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "amoviesdb@amoviesdb-355904.iam.gserviceaccount.com",
+  "client_id": "116775201478881530959",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/amoviesdb%40amoviesdb-355904.iam.gserviceaccount.com"
+}

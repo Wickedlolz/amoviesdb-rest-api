@@ -3,7 +3,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 
 const auth = new google.auth.GoogleAuth({
-    keyFile: './src/config/amoviesdb-cloud-storage-e79814915ad1.json',
+    keyFile: './src/config/amoviesdb-355904-f365111d86b3.json',
     scopes: 'https://www.googleapis.com/auth/drive',
 });
 
@@ -21,7 +21,7 @@ const drive = google.drive({
 exports.uploadFile = function (file) {
     const fileMetadata = {
         name: `${crypto.randomBytes(20).toString('hex')}.png`,
-        parents: ['1tEQqRzVClaVW3lK-OF-EPXn-rUvmXawe'],
+        parents: ['1Bzv_dj0LQFq4azlruTgl4pOs1ZiPjCCZ'],
     };
     const media = {
         mimeType: 'image/jpeg',
