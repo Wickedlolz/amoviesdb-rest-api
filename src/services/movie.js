@@ -1,7 +1,11 @@
 const Movie = require('../models/Movie');
 
-exports.getAll = function () {
-    return Movie.find({});
+exports.getAll = function (query) {
+    const options = {
+        title: new RegExp(query, 'i'),
+    };
+
+    return Movie.find(options);
 };
 
 exports.getById = function (movieId) {

@@ -7,8 +7,10 @@ const { isAuth, isCreator } = require('../middlewares/guards');
 const { body, validationResult } = require('express-validator');
 
 router.get('/', async (req, res) => {
+    const query = req.query.search;
+
     try {
-        const movies = await movieService.getAll();
+        const movies = await movieService.getAll(query);
         res.json(movies);
     } catch (error) {
         const errors = mapErrors(error);
