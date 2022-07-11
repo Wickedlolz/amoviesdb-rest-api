@@ -21,6 +21,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/most-liked', async (req, res) => {
+    try {
+        const mostLikedMovies = await movieService.getMostLiked();
+        res.json(mostLikedMovies);
+    } catch (error) {
+        const errors = mapErrors(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
 router.get('/my-movies/:userId', isAuth(), async (req, res) => {
     const userId = req.params.userId;
 

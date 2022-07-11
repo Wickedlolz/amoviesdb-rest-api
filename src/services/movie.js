@@ -5,11 +5,20 @@ exports.getAll = function (query, skipIndex, limit) {
         title: new RegExp(query, 'i'),
     };
 
-    // return Movie.find(options).skip(skipIndex).limit(limit);
     return Promise.all([
         Movie.find(options).skip(skipIndex).limit(limit),
         Movie.find().countDocuments(),
     ]);
+};
+
+exports.getMostLiked = async function () {
+    let movies = await Movie.find({});
+    movies = movies.sort((a, b) => {
+        return b.likes.length - a.likes.length;
+    });
+
+    return movies.slice(0, 4);
+    // return Movie.find({}).sort({ likes: -1 }).limit(4);
 };
 
 exports.getById = function (movieId) {
