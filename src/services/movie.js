@@ -1,11 +1,15 @@
 const Movie = require('../models/Movie');
 
-exports.getAll = function (query) {
+exports.getAll = function (query, skipIndex, limit) {
     const options = {
         title: new RegExp(query, 'i'),
     };
 
-    return Movie.find(options);
+    // return Movie.find(options).skip(skipIndex).limit(limit);
+    return Promise.all([
+        Movie.find(options).skip(skipIndex).limit(limit),
+        Movie.find().countDocuments(),
+    ]);
 };
 
 exports.getById = function (movieId) {

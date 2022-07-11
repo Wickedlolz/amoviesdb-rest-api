@@ -8,9 +8,12 @@ const { body, validationResult } = require('express-validator');
 
 router.get('/', async (req, res) => {
     const query = req.query.search;
+    const page = parseInt(req.query?.page) || 1;
+    const limit = 8;
+    const skipIndex = (page - 1) * limit;
 
     try {
-        const movies = await movieService.getAll(query);
+        const movies = await movieService.getAll(query, skipIndex, limit);
         res.json(movies);
     } catch (error) {
         const errors = mapErrors(error);
