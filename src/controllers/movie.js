@@ -43,31 +43,61 @@ router.get('/my-movies/:userId', isAuth(), async (req, res) => {
     }
 });
 
-router.post('/', isAuth(), async (req, res) => {
-    // viktor: TODO: make validation
-    const { errors } = validationResult(req);
-    const userId = req.user.id;
+router.post(
+    '/',
+    body('title').trim(),
+    body('imageUrl').trim(),
+    body('youtubeUrl').trim(),
+    body('description').trim(),
+    body('title')
+        .notEmpty()
+        .withMessage('Title is required.')
+        .bail()
+        .isLength({ max: 100 })
+        .withMessage('Title must be maximum 100 characters long.'),
+    body('imageUrl')
+        .notEmpty()
+        .withMessage('Image URL is required.')
+        .bail()
+        .custom(
+            (value) => value.startsWith('http') || value.startsWith('https')
+        )
+        .withMessage('Image URL must start with http:// or https://.'),
+    body('youtubeUrl')
+        .notEmpty()
+        .withMessage('YouTube URL is required.')
+        .bail()
+        .custom(
+            (value) => value.startsWith('http') || value.startsWith('https')
+        )
+        .withMessage('YouTube URL must start with http:// or https://'),
+    body('description').notEmpty().withMessage('Description is required.'),
+    isAuth(),
+    async (req, res) => {
+        const { errors } = validationResult(req);
+        const userId = req.user.id;
 
-    const data = {
-        title: req.body.title,
-        imageUrl: req.body.imageUrl,
-        youtubeUrl: req.body.youtubeUrl,
-        description: req.body.description,
-        owner: userId,
-    };
+        const data = {
+            title: req.body.title,
+            imageUrl: req.body.imageUrl,
+            youtubeUrl: req.body.youtubeUrl,
+            description: req.body.description,
+            owner: userId,
+        };
 
-    try {
-        if (errors.length > 0) {
-            throw errors;
+        try {
+            if (errors.length > 0) {
+                throw errors;
+            }
+
+            const movie = await movieService.create(data);
+            res.status(201).json(movie);
+        } catch (error) {
+            const errors = mapErrors(error);
+            res.status(400).json({ message: errors });
         }
-
-        const movie = await movieService.create(data);
-        res.status(201).json(movie);
-    } catch (error) {
-        const errors = mapErrors(error);
-        res.status(400).json({ message: errors });
     }
-});
+);
 
 router.get('/:id', async (req, res) => {
     const movieId = req.params.id;
@@ -86,24 +116,61 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.put('/:id', isAuth(), isCreator(), async (req, res) => {
-    const movieId = req.params.id;
+router.put(
+    '/:id',
+    body('title').trim(),
+    body('imageUrl').trim(),
+    body('youtubeUrl').trim(),
+    body('description').trim(),
+    body('title')
+        .notEmpty()
+        .withMessage('Title is required.')
+        .bail()
+        .isLength({ max: 100 })
+        .withMessage('Title must be maximum 100 characters long.'),
+    body('imageUrl')
+        .notEmpty()
+        .withMessage('Image URL is required.')
+        .bail()
+        .custom(
+            (value) => value.startsWith('http') || value.startsWith('https')
+        )
+        .withMessage('Image URL must start with http:// or https://.'),
+    body('youtubeUrl')
+        .notEmpty()
+        .withMessage('YouTube URL is required.')
+        .bail()
+        .custom(
+            (value) => value.startsWith('http') || value.startsWith('https')
+        )
+        .withMessage('YouTube URL must start with http:// or https://'),
+    body('description').notEmpty().withMessage('Description is required.'),
+    isAuth(),
+    isCreator(),
+    async (req, res) => {
+        const movieId = req.params.id;
+        const { errors } = validationResult(req);
 
-    const data = {
-        title: req.body.title,
-        imageUrl: req.body.imageUrl,
-        youtubeUrl: req.body.youtubeUrl,
-        description: req.body.description,
-    };
+        const data = {
+            title: req.body.title,
+            imageUrl: req.body.imageUrl,
+            youtubeUrl: req.body.youtubeUrl,
+            description: req.body.description,
+        };
 
-    try {
-        const updatedMovie = await movieService.updateById(movieId, data);
-        res.status(201).json(updatedMovie);
-    } catch (error) {
-        const errors = mapErrors(error);
-        res.status(400).json({ message: errors });
+        try {
+            if (errors.length > 0) {
+                throw errors;
+            }
+
+            const updatedMovie = await movieService.updateById(movieId, data);
+            res.status(201).json(updatedMovie);
+        } catch (error) {
+            const errors = mapErrors(error);
+            res.status(400).json({ message: errors });
+        }
     }
-});
+);
 
 router.delete('/:id', isAuth(), isCreator(), async (req, res) => {
     const movieId = req.params.id;
@@ -143,20 +210,35 @@ router.post('/dislike/:id', isAuth(), async (req, res) => {
     }
 });
 
-router.post('/comments/:id', isAuth(), async (req, res) => {
-    const movieId = req.params.id;
-    const userId = req.user.id;
-    const content = req.body.content;
+router.post(
+    '/comments/:id',
+    body('content').trim(),
+    body('content').notEmpty().withMessage('Comment field is empty.'),
+    isAuth(),
+    async (req, res) => {
+        const { errors } = validationResult(req);
+        const movieId = req.params.id;
+        const userId = req.user.id;
+        const content = req.body.content;
 
-    try {
-        const comment = await commentService.create(userId, movieId, content);
-        await movieService.addComment(movieId, comment._id);
+        try {
+            if (errors.length > 0) {
+                throw errors;
+            }
 
-        res.status(201).json(comment);
-    } catch (error) {
-        const errors = mapErrors(error);
-        res.status(400).json({ message: errors });
+            const comment = await commentService.create(
+                userId,
+                movieId,
+                content
+            );
+            await movieService.addComment(movieId, comment._id);
+
+            res.status(201).json(comment);
+        } catch (error) {
+            const errors = mapErrors(error);
+            res.status(400).json({ message: errors });
+        }
     }
-});
+);
 
 module.exports = router;
