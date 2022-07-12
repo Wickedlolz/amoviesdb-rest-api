@@ -15,7 +15,7 @@ module.exports = function () {
                 };
             } catch (error) {
                 return res
-                    .status(401)
+                    .status(403)
                     .json({ message: 'Invalid access token. Please sign in.' });
             }
         }
