@@ -44,8 +44,18 @@ exports.login = async function (email, password) {
 
 exports.getById = async function (userId) {
     const user = await User.findById(userId);
+    const modifiedUser = {
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+        email: user.email,
+        avatar: user.avatar,
+        myMovies: user.myMovies,
+        updatedAt: user.updatedAt,
+    };
 
-    return user;
+    return modifiedUser;
 };
 
 exports.updateById = async function (userId, userData) {
