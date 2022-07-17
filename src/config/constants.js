@@ -1,4 +1,4 @@
-exports.port = 3030;
-exports.DB_CONNECTION = 'mongodb://localhost:27017/emoviesdb-rest-api';
-exports.JWT_SECRET = 'mybiggestsupersecretfordevelopmentmode';
-exports.SALT_ROUNDS = 10;
+exports.port = process.env.PORT;
+exports.DB_CONNECTION = process.env.DB_CONNECTION;
+exports.JWT_SECRET = process.env.JWT_SECRET;
+exports.SALT_ROUNDS = process.env.SALT_ROUNDS;
