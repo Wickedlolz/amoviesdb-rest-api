@@ -13,7 +13,8 @@ const userSchema = new Schema(
         password: { type: String, required: true },
         avatar: {
             type: String,
-            default: 'http://localhost:3030/public/images/wvxPV9S.png',
+            default:
+                'https://amoviesdb-rest-api.herokuapp.com/public/images/wvxPV9S.png',
         },
         myMovies: [{ type: ObjectId, ref: 'Movie' }],
     },
