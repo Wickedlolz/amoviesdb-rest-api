@@ -46,4 +46,4 @@ Users
 -   `POST /api/users/login` - logs in an existing user (send a JSON object in the request body, holding all fields, e.g. `{ "email": "peter@abv.bg", "password": "123456" }` response is same as register **important - every request need to have header X-Authorization with accessToken**
 -   `GET /api/users/logout` - logs out an existing user (response is a object `{ "message": "Successfully logout."}`)
 -   `GET /api/users/:userId` - returns a user object e.g. `{ _id: user._id, firstName: user.firstName, lastName: user.lastName,username: user.username,email: user.email,avatar: user.avatar,myMovies: user.myMovies,updatedAt: user.updatedAt }`
--   `PUT /api/users/:userId` - edit user by `userId` send a FormData object e.g. `const formData = new FormData(event.target)` and send formData with or whitout avatar image **(avatar must by jpg/png format)**
+-   `PUT /api/users/:userId` - edit user by `userId` send a FormData object e.g. `const formData = new FormData(event.target)` and send formData with or whitout avatar image **(avatar must by jpg/png format)** this route using express-formidable middleware
