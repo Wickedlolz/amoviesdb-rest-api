@@ -11,7 +11,7 @@ exports.register = async function (userData) {
         throw new Error('Email is taken.');
     }
 
-    const hashedPassword = await hash(userData.password, SALT_ROUNDS);
+    const hashedPassword = await hash(userData.password, Number(SALT_ROUNDS));
 
     const user = new User({
         firstName: userData.firstName,
