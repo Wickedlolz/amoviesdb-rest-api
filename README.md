@@ -9,6 +9,9 @@ Technologies:
 -   Express.js
 -   Node.js
 -   Mongoose
+
+Packages:
+
 -   jsonwebtoken
 -   express-validator
 -   express-formidable
@@ -18,7 +21,7 @@ Technologies:
 
 ## Live Demo
 
--   Live Demo HERE
+-   Live Demo [HERE](https://amoviesdb-rest-api.herokuapp.com/)
 
 ## RESTful API
 
