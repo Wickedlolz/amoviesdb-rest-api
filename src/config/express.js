@@ -2,7 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const auth = require('../middlewares/auth');
 
-const whitelist = ['http://localhost:3000', 'https://www.youtube.com'];
+const whitelist = [
+    'http://localhost:3000',
+    'https://www.youtube.com',
+    'https://amoviesdb.web.app/',
+];
 
 module.exports = (app) => {
     app.use('/public', express.static('public'));
