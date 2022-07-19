@@ -14,7 +14,7 @@ const userSchema = new Schema(
         avatar: {
             type: String,
             default:
-                'https://amoviesdb-rest-api.herokuapp.com/public/images/wvxPV9S.png',
+                'https://amoviesdb-rest-api.herokuapp.com/public/images/profile-icon.png',
         },
         myMovies: [{ type: ObjectId, ref: 'Movie' }],
     },
