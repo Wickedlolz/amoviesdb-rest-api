@@ -107,7 +107,8 @@ router.get('/:id', async (req, res) => {
             .getById(movieId)
             .populate('owner')
             // .populate('likes')
-            .populate({ path: 'comments', populate: { path: 'author' } });
+            .populate({ path: 'comments', populate: { path: 'author' } })
+            .lean();
 
         const modifiedOwner = {
             avatar: movie.owner.avatar,
