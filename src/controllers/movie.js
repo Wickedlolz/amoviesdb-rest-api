@@ -109,7 +109,19 @@ router.get('/:id', async (req, res) => {
             // .populate('likes')
             .populate({ path: 'comments', populate: { path: 'author' } });
 
-        res.json(movie);
+        const modifiedOwner = {
+            avatar: movie.owner.avatar,
+            createAt: movie.owner.createAt,
+            email: movie.owner.email,
+            firstName: movie.owner.firstName,
+            lastName: movie.owner.lastName,
+            updatedAt: movie.owner.updatedAt,
+            username: movie.owner.username,
+        };
+
+        const modifiedMovie = { ...movie, owner: modifiedOwner };
+
+        res.json(modifiedMovie);
     } catch (error) {
         const errors = mapErrors(error);
         res.status(400).json({ message: errors });
