@@ -112,7 +112,7 @@ router.get('/:id', async (req, res) => {
 
         const modifiedOwner = {
             avatar: movie.owner.avatar,
-            createAt: movie.owner.createAt,
+            createdAt: movie.owner.createdAt,
             email: movie.owner.email,
             firstName: movie.owner.firstName,
             lastName: movie.owner.lastName,
