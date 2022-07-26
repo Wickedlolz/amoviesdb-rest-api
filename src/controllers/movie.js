@@ -111,6 +111,7 @@ router.get('/:id', async (req, res) => {
             .lean();
 
         const modifiedOwner = {
+            _id: movie.owner._id,
             avatar: movie.owner.avatar,
             createdAt: movie.owner.createdAt,
             email: movie.owner.email,
